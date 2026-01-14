@@ -316,6 +316,23 @@ files = [
 ]
 
 [[package]]
+name = "esig"
+version = "1.0.0"
+description = "This package provides \"rough path\" tools for analysing vector time series."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "esig-1.0.0-py3-none-any.whl", hash = "sha256:370d7f3f5c5a8466be8db548c3c7ce35868f6c5f69a81fdcd9f57b4e1cf48c0d"},
+    {file = "esig-1.0.0.tar.gz", hash = "sha256:b34e74d0a7378beb1df616480573057eef4ab4cd227b1a89a446559abc3439bc"},
+]
+
+[package.dependencies]
+numpy = "*"
+pyrecombine = "*"
+roughpy = "*"
+
+[[package]]
 name = "executing"
 version = "2.2.1"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -402,6 +419,38 @@ symfont = ["sympy"]
 type1 = ["xattr ; sys_platform == \"darwin\""]
 unicode = ["unicodedata2 (>=17.0.0) ; python_version <= \"3.14\""]
 woff = ["brotli (>=1.0.1) ; platform_python_implementation == \"CPython\"", "brotlicffi (>=0.8.0) ; platform_python_implementation != \"CPython\"", "zopfli (>=0.1.4)"]
+
+[[package]]
+name = "intel-cmplr-lib-ur"
+version = "2025.3.1"
+description = "Intel® oneAPI Unified Runtime Libraries package"
+optional = false
+python-versions = "*"
+groups = ["main"]
+markers = "(platform_machine == \"AMD64\" or platform_machine == \"x86_64\") and sys_platform != \"darwin\""
+files = [
+    {file = "intel_cmplr_lib_ur-2025.3.1-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:1730cce0c65591d157d5fa1acdc8447a9ed419b527ea52e66db0815a0fb5e444"},
+    {file = "intel_cmplr_lib_ur-2025.3.1-py2.py3-none-win_amd64.whl", hash = "sha256:f34122b85a5e7747566643719fde8a547f7f8e73994c2b8c539c2c789d708f02"},
+]
+
+[package.dependencies]
+umf = "==1.0.*"
+
+[[package]]
+name = "intel-openmp"
+version = "2025.3.1"
+description = "Intel OpenMP* Runtime Library"
+optional = false
+python-versions = "*"
+groups = ["main"]
+markers = "(platform_machine == \"AMD64\" or platform_machine == \"x86_64\") and sys_platform != \"darwin\""
+files = [
+    {file = "intel_openmp-2025.3.1-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:2c3541ea275f0e8417243612a16b6f1f4d15c1e9fcc96667db0824d0735f1413"},
+    {file = "intel_openmp-2025.3.1-py2.py3-none-win_amd64.whl", hash = "sha256:bf325e802d9f52f95ca8d2558bb66f30d1839aed30426533063a78a3587e9035"},
+]
+
+[package.dependencies]
+intel-cmplr-lib-ur = "2025.3.1"
 
 [[package]]
 name = "ipykernel"
@@ -1238,6 +1287,41 @@ files = [
 diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
+name = "pyrecombine"
+version = "1.0.1"
+description = ""
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "pyrecombine-1.0.1-cp310-cp310-macosx_13_0_x86_64.whl", hash = "sha256:5b6942ecce1fc61e2ccc1576f721c31a24e52a5170ffc4b1ea96ce1f3b266fb9"},
+    {file = "pyrecombine-1.0.1-cp310-cp310-macosx_14_0_arm64.whl", hash = "sha256:ed922457227c67cbe53a7259b1282d2545ff8ffbbe112c17fff04d7741ccde2e"},
+    {file = "pyrecombine-1.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8de53241b3bcf5c8683144af35aabb32aedc963e6f2ff09fe35f1374c39409e5"},
+    {file = "pyrecombine-1.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:afe0e275437a3913a5925c80f898bf2e14968f9c58dcfbde9a61fd82057de062"},
+    {file = "pyrecombine-1.0.1-cp311-cp311-macosx_13_0_x86_64.whl", hash = "sha256:ea2f62d72656cbb1a0ced7e71346757e659270d0d9b841a9be1f96da0f6348bd"},
+    {file = "pyrecombine-1.0.1-cp311-cp311-macosx_14_0_arm64.whl", hash = "sha256:bdfcccfff9dccbbd4feb6ff26ed595f397a11b80bdf1d54afb597e4b51a38f1e"},
+    {file = "pyrecombine-1.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b96497e0d4ac30bcb6c3b5fda1b50febb16190addf80846363607c4b2ca41fac"},
+    {file = "pyrecombine-1.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:a47f89278d4aa35833a434de45e08deb91fe4e2e63a52ebd3e60498518dfe477"},
+    {file = "pyrecombine-1.0.1-cp312-cp312-macosx_13_0_x86_64.whl", hash = "sha256:3fe7fa7d4d7f50700c1ac547b476f1b1a043a04aedc11dff1233d60a84a9c3f7"},
+    {file = "pyrecombine-1.0.1-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:a095411a519f77f583d495556c014f59d158475e4232e4b83eb85e40851ec7ef"},
+    {file = "pyrecombine-1.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:22406eb4d656286459b2a188acf9f64490e0e645dfa14ca493b00f7a9d3fe6c1"},
+    {file = "pyrecombine-1.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:553b9a4490272bb4c6dca816743ed51b47919830608b367857548371dd2d4639"},
+    {file = "pyrecombine-1.0.1-cp313-cp313-macosx_13_0_x86_64.whl", hash = "sha256:90b2c79aa38e5b318847e9d40e43ec3b207ddd797c473c26d6cb6c82fc7d1465"},
+    {file = "pyrecombine-1.0.1-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:6e52bef77e786f0f7574091c99aafa9bed5a7613c826a9e318fadd356970e315"},
+    {file = "pyrecombine-1.0.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3c86c6401d2924a654365ee975e9ee35e54905b0e40322e341746c016f6e4f38"},
+    {file = "pyrecombine-1.0.1-cp313-cp313-win_amd64.whl", hash = "sha256:2d86feff4d8ca24e73232e3f6fca6f69bde63cad685a8e4445e8b5f3e7d976d6"},
+    {file = "pyrecombine-1.0.1-cp39-cp39-macosx_13_0_x86_64.whl", hash = "sha256:e371a9a484a0b5ecffb750378647b2f2fec725e5e5344a8ea01c9ba362210e57"},
+    {file = "pyrecombine-1.0.1-cp39-cp39-macosx_14_0_arm64.whl", hash = "sha256:dff364e0ed001e6e26983c7d7e2c291244a18b30c2e6ed9d932073c556496715"},
+    {file = "pyrecombine-1.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c9b59ca924657e65ddeac41864ae285e31e2470f92cbe514648fb25e97ae3e43"},
+    {file = "pyrecombine-1.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:9460116889a8ccbdecfe433938fffb2c913c2cc55abd4e72b6476e1c195df6e5"},
+    {file = "pyrecombine-1.0.1.tar.gz", hash = "sha256:9355c6d6b1fd17a5123dfd22538b9bc140dffaa855588383fd689cdfa4ed9957"},
+]
+
+[package.dependencies]
+intel_openmp = {version = "*", markers = "(platform_machine == \"AMD64\" or platform_machine == \"x86_64\") and sys_platform != \"darwin\""}
+numpy = ">=2.0"
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 description = "Extensions to the standard Python datetime module"
@@ -1370,6 +1454,40 @@ files = [
 cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 
 [[package]]
+name = "roughpy"
+version = "0.2.0"
+description = ""
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "roughpy-0.2.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:631852825d24dde86035184ab01d796b1c830849cb6bc3197d51338eeb778cb4"},
+    {file = "roughpy-0.2.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:8c12e38bdd089e7fb0ce3da61709f051d51848db7b3f0fa204e39a4b2fdbe2cb"},
+    {file = "roughpy-0.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e963c635e1a3d4d43ebb158f2efd3db9215543ab9bd83d4080f4b4c39c23268c"},
+    {file = "roughpy-0.2.0-cp310-cp310-win_amd64.whl", hash = "sha256:13a89b347107ae34cfce708f6e115ee415d598b06e8b9e10aeeb87d45a120a12"},
+    {file = "roughpy-0.2.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:9bdd622c413513ed4cfa86233e98ad9a295bb258cd06381b429bce00b408e890"},
+    {file = "roughpy-0.2.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:739c8c8eff0b162483ec3cadce77190c573882e1abf88c3f791e38902c82b1ef"},
+    {file = "roughpy-0.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:84b2b723b069dc9b0eb15dd71c71024accee0df8997bd30a129320bbafe95848"},
+    {file = "roughpy-0.2.0-cp311-cp311-win_amd64.whl", hash = "sha256:5f5ce9d6670d9c7dc6ad64db352927549ea3b35ad9ce18d6239b1b6b82a5d06c"},
+    {file = "roughpy-0.2.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:6bee92241e25ad22eec2b941f6d897a7816d13a0498d78ca9f383bac3d691469"},
+    {file = "roughpy-0.2.0-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:2c93baad7fbc7a222e2a4ef31f891a858af8fba7f6c1dd636eefb4d9dc8b6943"},
+    {file = "roughpy-0.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7660af24f8216b451a79f91034fac7970c94bcbbfab11fe8e90acdafca4162b0"},
+    {file = "roughpy-0.2.0-cp312-cp312-win_amd64.whl", hash = "sha256:88e8a2f458f3315db05fb23222e6cc2076ffb105bb02deb468a898632f740093"},
+    {file = "roughpy-0.2.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:5133d7f647dbd8c502cbeb6be45ad42473c384d01b8b0dc2d17a2ad0a5efb2d4"},
+    {file = "roughpy-0.2.0-cp313-cp313-macosx_11_0_x86_64.whl", hash = "sha256:1baa61020d270a53560c8bb1c1d362b158a0caecb2f2e4a6e4282dde53db46cb"},
+    {file = "roughpy-0.2.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3b60c2a2073a1ecd59cd4d35342f84540ba314c5290ff15210a9e0da2691ca43"},
+    {file = "roughpy-0.2.0-cp313-cp313-win_amd64.whl", hash = "sha256:67e2612b6a88ab92a2e29eedf3ca9acaa683233597a8c93ad5ff5398b9ca7e57"},
+    {file = "roughpy-0.2.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:1d0c3e912028b41cfde0c19edc484324f7fdc96bff343e8115ae0f45d42a96c4"},
+    {file = "roughpy-0.2.0-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:bb3e008d0d360dd0d291ad204a121fcdb6d73da84fe1d059020aa28776861ca8"},
+    {file = "roughpy-0.2.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:edaaff9bfa23a352698b90daac7c881423a68ae071aab5fd0b9539cb28a5a29e"},
+    {file = "roughpy-0.2.0-cp39-cp39-win_amd64.whl", hash = "sha256:201aa9538e02054f1d6bfa2dbb69734a777b56640c848d298e65f16449eb9b48"},
+    {file = "roughpy-0.2.0.tar.gz", hash = "sha256:00603938ea24d0f3eae5f5e8de2ae8400f93b8354995190b953b23dc4d135176"},
+]
+
+[package.dependencies]
+numpy = ">=1.23.5"
+
+[[package]]
 name = "six"
 version = "1.17.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -1400,6 +1518,19 @@ pure-eval = "*"
 
 [package.extras]
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
+
+[[package]]
+name = "tcmlib"
+version = "1.4.1"
+description = "Thread Composability Manager"
+optional = false
+python-versions = "*"
+groups = ["main"]
+markers = "(platform_machine == \"AMD64\" or platform_machine == \"x86_64\") and sys_platform != \"darwin\""
+files = [
+    {file = "tcmlib-1.4.1-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:0d5bd98db48d31bec7fedba5c23599bf9ae43c7016d4c3946d25242d320cee89"},
+    {file = "tcmlib-1.4.1-py2.py3-none-win_amd64.whl", hash = "sha256:5202a1fd8541182fbd4ef72848784e4bf94340152d7ddff33d401d30930fa53c"},
+]
 
 [[package]]
 name = "tornado"
@@ -1452,6 +1583,22 @@ files = [
 ]
 
 [[package]]
+name = "umf"
+version = "1.0.2"
+description = "Unified Memory Framework"
+optional = false
+python-versions = "*"
+groups = ["main"]
+markers = "(platform_machine == \"AMD64\" or platform_machine == \"x86_64\") and sys_platform != \"darwin\""
+files = [
+    {file = "umf-1.0.2-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:ef4d144a2007a73a1a22ee575ee4f5a1894a206532c6f6d77b4cf548643502fb"},
+    {file = "umf-1.0.2-py2.py3-none-win_amd64.whl", hash = "sha256:695b6be076a7bd2037b0cdbe5ee025f9ae74934cc78bdf25df8b52e8f746e457"},
+]
+
+[package.dependencies]
+tcmlib = ">=1.4"
+
+[[package]]
 name = "wcwidth"
 version = "0.2.14"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -1466,4 +1613,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "9d41d79a97e732ba6f6c35d46fde7765d3ed9eb593c2aeea9970563a32e29e28"
+content-hash = "6b76ebd1a77f66b8cf8b934a2ea42e9419c93008f7229b523e4216ac61b3210c"

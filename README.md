@@ -12,6 +12,16 @@ This project uses [Poetry](https://python-poetry.org/) for dependency management
     ```bash
     poetry install
     ```
+    Poetry installs the project in editable mode by default.
+
+### Alternative Installation (pip / Conda)
+
+A `requirements.txt` file is also provided for environments where Poetry is not used (e.g., Conda).
+
+```bash
+pip install -r requirements.txt
+pip install -e .  # Install the project in editable mode
+```
 
 ## References
 
