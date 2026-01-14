@@ -1,5 +1,3 @@
-from .model import hello
+from .simulation_models import GBM, HullWhite
 
-__all__ = [
-    "hello"
-]
+__all__ = ["GBM", "HullWhite"]
