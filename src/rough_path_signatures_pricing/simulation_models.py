@@ -74,7 +74,7 @@ class ItoDiffusion(ABC):
 
             dW[:, k] = dw
 
-        return times, paths, dW
+        return paths, times, dW
 
 
 @dataclass(frozen=True)
