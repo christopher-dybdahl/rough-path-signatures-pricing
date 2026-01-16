@@ -158,54 +158,6 @@ class HullWhite(ItoDiffusion):
 
 
 @dataclass(frozen=True)
-class GARCH(Simulator):
-    """
-    GARCH(1,1) model for discrete-time price simulation.
-    """
-
-    omega: float
-    alpha: float
-    beta: float
-    mu: float
-
-    def simulate_paths(self, n_paths: int):
-        if n_paths <= 0:
-            raise ValueError("n_paths must be positive.")
-
-        rng = np.random.default_rng(self.seed)
-        dt = (self.t1 - self.t0) / self.n_steps
-        sqrt_dt = np.sqrt(dt)
-
-        times = np.linspace(self.t0, self.t1, self.n_steps + 1)
-        paths = np.empty((n_paths, self.n_steps + 1), dtype=float)
-        paths[:, 0] = self.x0
-
-        # init the variance at long-term average
-        v = np.full(n_paths, self.omega / (1 - self.alpha - self.beta))
-
-        # Store effective dW for consistency (normalized innovations)
-        dW = np.empty((n_paths, self.n_steps), dtype=float)
-
-        for k in range(self.n_steps):
-            z = rng.standard_normal(n_paths)
-            dw = sqrt_dt * z
-
-            # S_{t+1} = S_t * exp((mu - 0.5*v)*dt + sqrt(v)*dw)
-            paths[:, k + 1] = paths[:, k] * np.exp(
-                (self.mu - 0.5 * v) * dt + np.sqrt(v) * dw
-            )
-
-            # Variance update: v_{t+1} = omega + alpha*(z^2*v_t) + beta*v_t
-            # Note: GARCH typically defined on returns epsilon = z * sqrt(v)
-            # Here we follow a standard GARCH(1,1) process ensuring positivity
-            v = self.omega + self.alpha * (z**2 * v) + self.beta * v
-
-            dW[:, k] = dw
-
-        return paths, times, dW
-
-
-@dataclass(frozen=True)
 class JumpDiffusion(ItoDiffusion):
     """
     Merton Jump Diffusion: dS_t = mu*S_t*dt + sigma*S_t*dW_t + S_t*dJ_t
@@ -332,6 +284,54 @@ class RoughVolatility(Simulator):
 
             # Price update
             paths[:, k + 1] = paths[:, k] * (1 + vol[:, k] * dw)
+
+            dW[:, k] = dw
+
+        return paths, times, dW
+
+
+@dataclass(frozen=True)
+class GARCH(Simulator):
+    """
+    GARCH(1,1) model for discrete-time price simulation.
+    """
+
+    omega: float
+    alpha: float
+    beta: float
+    mu: float
+
+    def simulate_paths(self, n_paths: int):
+        if n_paths <= 0:
+            raise ValueError("n_paths must be positive.")
+
+        rng = np.random.default_rng(self.seed)
+        dt = (self.t1 - self.t0) / self.n_steps
+        sqrt_dt = np.sqrt(dt)
+
+        times = np.linspace(self.t0, self.t1, self.n_steps + 1)
+        paths = np.empty((n_paths, self.n_steps + 1), dtype=float)
+        paths[:, 0] = self.x0
+
+        # init the variance at long-term average
+        v = np.full(n_paths, self.omega / (1 - self.alpha - self.beta))
+
+        # Store effective dW for consistency (normalized innovations)
+        dW = np.empty((n_paths, self.n_steps), dtype=float)
+
+        for k in range(self.n_steps):
+            z = rng.standard_normal(n_paths)
+            dw = sqrt_dt * z
+
+            # S_{t+1} = S_t * exp((mu - 0.5*v)*dt + sqrt(v)*dw)
+            paths[:, k + 1] = paths[:, k] * np.exp(
+                (self.mu - 0.5 * v) * dt + np.sqrt(v) * dw
+            )
+
+            # Variance update: v_{t+1} = omega + alpha*(z^2*v_t) + beta*v_t
+            # Note: GARCH typically defined on returns epsilon = z * sqrt(v)
+            # Here we follow a standard GARCH(1,1) process ensuring positivity
+            v = self.omega + self.alpha * (z**2 * v) + self.beta * v
 
             dW[:, k] = dw
 
