@@ -30,7 +30,7 @@ To use the pricing package, follow these five steps:
 1.  **Initialize a Simulator**: Choose a stochastic process (e.g., GBM, Hull-White) to generate market paths.
 2.  **Define the Payoff Function**: Implement the payoff logic (e.g., European Call) accepting paths and a parameter (strike).
 3.  **Initialize the Pricer**: Create a `SignaturePricer` instance with the simulator and payoff function.
-4.  **Fit to Market Data**: Calibrate the model using observed option prices and their corresponding parameters (strikes).
+4.  **Fit to Market Data**: Calibrate the model using observed option prices and their corresponding parameters (e.g. strikes).
 5.  **Predict**: Price new options by supplying their parameters.
 
 ### Example
@@ -69,7 +69,7 @@ market_prices = np.array([15.2, 8.5, 3.1])  # Dummy market data
 
 # n_paths: Number of simulation paths for calibration
 # lam: Regularization parameter (Ridge regression)
-pricer.fit(X=market_strikes, y=market_prices, n_paths=10000, lam=0.1)
+pricer.fit(X=market_strikes, y=market_prices, n_paths=10000)
 
 # 5. Predict prices for unobserved parameters
 target_strikes = np.array([95, 105])
