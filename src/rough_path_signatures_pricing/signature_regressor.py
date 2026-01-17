@@ -15,6 +15,7 @@ class SignaturePricer:
     paths_: np.ndarray = field(init=False, default=None)
     times_: np.ndarray = field(init=False, default=None)
     signatures_: np.ndarray = field(init=False, default=None)
+    lam_: float = field(init=False, default=None)
     implied_expected_signature_: np.ndarray = field(init=False, default=None)
     coeffs_: np.ndarray = field(init=False, default=None)
 
@@ -42,31 +43,41 @@ class SignaturePricer:
         return signatures
 
     def _get_linear_functional(
-        self, signatures: np.ndarray, payoff: np.ndarray
+        self, signatures: np.ndarray, payoff: np.ndarray, lam: float
     ) -> np.ndarray:
-        return np.linalg.inv(signatures.T @ signatures) @ signatures.T @ payoff
+        return np.linalg.solve(
+            signatures.T @ signatures + lam * np.eye(signatures.shape[1]),
+            signatures.T @ payoff,
+        )
 
-    def _get_implied_expected_signatures(self, y: np.ndarray) -> np.ndarray:
-        return np.linalg.inv(self.coeffs_.T @ self.coeffs_) @ self.coeffs_.T @ y
+    def _get_implied_expected_signature(self, y: np.ndarray, lam: float) -> np.ndarray:
+        return np.linalg.solve(
+            self.coeffs_.T @ self.coeffs_ + lam * np.eye(self.coeffs_.shape[1]),
+            self.coeffs_.T @ y,
+        )
 
     def fit(
         self,
         X: np.ndarray,
         y: np.ndarray,
         n_paths: int = 10000,
-    ) -> np.ndarray:
-        self.paths, self.times, _ = self.simulator.simulate_paths(n_paths)
-        self.signatures_ = self._get_signatures(self.paths, self.times)
+        lam: float = 0,
+    ) -> None:
+        self.paths_, self.times_, _ = self.simulator.simulate_paths(n_paths)
+        self.signatures_ = self._get_signatures(self.paths_, self.times_)
+        self.lam_ = lam
 
         coeffs = []
         for param in X:
-            param_payoffs = self.func(self.paths, param)
-            param_coeff = self._get_linear_functional(self.signatures_, param_payoffs)
+            param_payoffs = self.func(self.paths_, param)
+            param_coeff = self._get_linear_functional(
+                self.signatures_, param_payoffs, lam
+            )
             coeffs.append(param_coeff)
 
         self.coeffs_ = np.vstack(coeffs)
 
-        self.implied_expected_signature_ = self._get_implied_expected_signatures(y)
+        self.implied_expected_signature_ = self._get_implied_expected_signature(y, lam)
 
     def predict(self, X: float | np.ndarray) -> np.ndarray:
         if type(X) is not np.ndarray:
@@ -74,8 +85,10 @@ class SignaturePricer:
 
         coeffs = []
         for param in X:
-            param_payoffs = self.func(self.paths, param)
-            param_coeff = self._get_linear_functional(self.signatures_, param_payoffs)
+            param_payoffs = self.func(self.paths_, param)
+            param_coeff = self._get_linear_functional(
+                self.signatures_, param_payoffs, self.lam_
+            )
             coeffs.append(param_coeff)
         coeffs_stacked = np.vstack(coeffs)
 
