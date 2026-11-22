@@ -1,6 +1,20 @@
-# Rough Path Signatures Pricing
+# Model-Free Exotic Pricing with Implied Expected Signatures
 
-This repository implements the pricing model from Lyons et al. (2019).
+Implementation of Lyons, Nejad & Perez Arribas (2019): exotic payoffs are
+approximated as **linear functionals of the level-5 truncated signature** of
+the price path's lead-lag transform. An *implied expected signature* is
+calibrated by least squares from a set of liquid contracts, after which any
+payoff in the linear span — Asians, up-and-in and up-and-out barriers — is
+priced by a single inner product, with no model assumption on the dynamics.
+
+**Out-of-sample results** (100 calibration contracts, 100 held-out exotics):
+R² ≈ 0.997 under GBM, 0.995 under jump-diffusion, 0.994 under rough
+volatility, and ≈ 0.90 when calibrated to real SPX vanilla prices
+(figures in `img/`).
+
+Project report:
+[Nonparametric Pricing of Exotic Derivatives via Implied Expected Signature (PDF)](https://christopher-dybdahl.github.io/assets/pdfs/signature_pricing.pdf)
+— Statistical Methods in Finance, Imperial College London, group project.
 
 ## Setup and Installation
 
